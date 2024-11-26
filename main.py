@@ -3,8 +3,6 @@ import datetime
 listaExperimentos = []
 
 
-
-
 def agregar_Expermiento():
     """permite un nuevo experimento"""
     print("HOLA, AGREGUE SU NUEVO EXPERIMENTO")
@@ -23,19 +21,17 @@ def visualizar_Experimentos():
         print("No hay experimentos para mostrar.")
         return
     for exp in listaExperimentos:
-        print(f"Nombre: {exp['nombre']}")
-        print(f"Fecha: {exp['fecha Experimento']}")
-        print(f"Resultado: {exp['resultado']}")
+        print(f"Nombre: {exp[0]}")
+        print(f"Fecha: {exp[1]}")
+        print(f"Resultado: {exp[2]}")
         print("-----------------------------")
 
-
-visualizar_Experimentos()
 
 def eliminar_experimento():
     nombre = input("Ingrese el nombre del experimento a eliminar: ")
     
     for exp in listaExperimentos:
-        if exp['nombre'].lower() == nombre.lower():
+        if exp[0].lower() == nombre.lower():
             listaExperimentos.remove(exp)
             print(f"El experimento '{nombre}' ha sido eliminado.\n")
             return
@@ -46,9 +42,9 @@ def calcular_estadisticas():
         print("No hay experimentos registrados para mostrar estadísticas.\n")
         return
     
-    promedios = [sum(exp['resultados']) / len(exp['resultados']) for exp in listaExperimentos]
-    maximos = [max(exp['resultados']) for exp in listaExperimentos]
-    minimos = [min(exp['resultados']) for exp in listaExperimentos]
+    promedios = [sum(exp[3]) / len(exp[3]) for exp in listaExperimentos]
+    maximos = [max(exp[3]) for exp in listaExperimentos]
+    minimos = [min(exp[3]) for exp in listaExperimentos]
 
     print(f"Promedio general de todos los experimentos: {sum(promedios) / len(promedios)}")
     print(f"Máximo general de todos los experimentos: {max(maximos)}")
@@ -73,7 +69,7 @@ def comprar_experimentos():
          opcion = int(input("Seleccione el número del experimento que desea comprar: ")) 
          if 0<= opcion < len(listaExperimentos):
              comprado= listaExperimentos.pop(opcion)
-             print("has comprado el experimento{comprado}")
+             print("has comprado el experimento{0}")
 
          else:
             print("opcion no es valida, seleccione una opcion",(listaExperimentos))
@@ -89,16 +85,16 @@ def generar_informe():
     
     with open("informe_experimentos.txt", "w") as file:
         for exp in listaExperimentos:
-            file.write(f"Experimento: {exp['nombre']} - Fecha: {exp['fecha']}\n")
+            file.write(f"Experimento: {exp[0]} - Fecha: {exp[1]}\n")
             file.write(f"  Tipo: {exp['tipo']}\n")
-            file.write(f"  Resultados: {exp['resultados']}\n")
-            file.write(f"  Promedio: {sum(exp['resultados']) / len(exp['resultados'])}\n")
-            file.write(f"  Máximo: {max(exp['resultados'])}\n")
-            file.write(f"  Mínimo: {min(exp['resultados'])}\n\n")
+            file.write(f"  Resultados: {exp[2]}\n")
+            file.write(f"  Promedio: {sum(exp[2]) / len(exp[2])}\n")
+            file.write(f"  Máximo: {max(exp[2])}\n")
+            file.write(f"  Mínimo: {min(exp[2])}\n\n")
     
     print("Informe generado correctamente en 'informe_experimentos.txt'.\n")
 
-def mostrar_Menu():
+def mostrar_menu():
    
    while True:  # Este bucle permite que el menú se muestre repetidamente hasta que el usuario elija salir
         print("\n--- MENU PRINCIPAL ---")
@@ -138,4 +134,5 @@ def mostrar_Menu():
 
 
 if __name__ == "__main__":
-   mostrar_Menu()
+    mostrar_menu()
+
